@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[English](./README.md)
+[中文版](./README.zh.md) | [English](./README.md)
 
 An AWS expert skill powered by the [AWS Knowledge MCP Server](https://awslabs.github.io/mcp/servers/aws-knowledge-mcp-server) — built for humans and AI agents. Real-time access to AWS documentation, best practices, SOPs, and regional availability.
 
