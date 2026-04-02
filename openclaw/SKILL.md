@@ -14,16 +14,7 @@ description: >
 
 Query the AWS Knowledge MCP Server via mcporter for real-time AWS expertise.
 
-## Prerequisites
-
-mcporter must be installed with the `aws-knowledge` server configured:
-
-```bash
-npm install -g mcporter
-mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
-```
-
-Verify: `mcporter list aws-knowledge --schema`
+The MCP server is `aws-knowledge` (must be configured in mcporter).
 
 ## Query Routing
 
