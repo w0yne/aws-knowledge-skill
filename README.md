@@ -138,19 +138,16 @@ mcporter list aws-knowledge --schema
 
 #### Claude Code Agent
 
-**Step 1 — Add MCP server via CLI**
+**Step 1 — Write the plugin files directly**
 
-```bash
-claude mcp add aws-knowledge --transport http https://knowledge-mcp.global.api.aws
-```
+Create the plugin directory and write all files:
 
-**Step 2 — Write the skill files directly**
+- `~/.claude-plugins/aws-knowledge/.claude-plugin/plugin.json` ← from [`claude-code/.claude-plugin/plugin.json`](claude-code/.claude-plugin/plugin.json)
+- `~/.claude-plugins/aws-knowledge/.mcp.json` ← from [`claude-code/.mcp.json`](claude-code/.mcp.json)
+- `~/.claude-plugins/aws-knowledge/skills/aws-knowledge/SKILL.md` ← from [`claude-code/skills/aws-knowledge/SKILL.md`](claude-code/skills/aws-knowledge/SKILL.md)
+- `~/.claude-plugins/aws-knowledge/skills/aws-knowledge/references/query-patterns.md` ← from [`claude-code/skills/aws-knowledge/references/query-patterns.md`](claude-code/skills/aws-knowledge/references/query-patterns.md)
 
-Create `.claude/skills/aws-knowledge/SKILL.md` with the contents of [`claude-code/skills/aws-knowledge/SKILL.md`](claude-code/skills/aws-knowledge/SKILL.md).
-
-Create `.claude/skills/aws-knowledge/references/query-patterns.md` with the contents of [`claude-code/skills/aws-knowledge/references/query-patterns.md`](claude-code/skills/aws-knowledge/references/query-patterns.md).
-
-> Fetch from `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/skills/aws-knowledge/SKILL.md` and `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/skills/aws-knowledge/references/query-patterns.md`, then write to disk.
+> Fetch all files from `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/` and write to `~/.claude-plugins/aws-knowledge/`.
 
 **Step 3 — Verify**
 

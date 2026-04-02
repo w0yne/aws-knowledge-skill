@@ -138,19 +138,16 @@ mcporter list aws-knowledge --schema
 
 #### Claude Code Agent
 
-**步骤 1 — 通过 CLI 添加 MCP 服务器**
+**步骤 1 — 直接写入插件文件**
 
-```bash
-claude mcp add aws-knowledge --transport http https://knowledge-mcp.global.api.aws
-```
+创建插件目录并写入所有文件：
 
-**步骤 2 — 直接写入技能文件**
+- `~/.claude-plugins/aws-knowledge/.claude-plugin/plugin.json` ← 来自 [`claude-code/.claude-plugin/plugin.json`](claude-code/.claude-plugin/plugin.json)
+- `~/.claude-plugins/aws-knowledge/.mcp.json` ← 来自 [`claude-code/.mcp.json`](claude-code/.mcp.json)
+- `~/.claude-plugins/aws-knowledge/skills/aws-knowledge/SKILL.md` ← 来自 [`claude-code/skills/aws-knowledge/SKILL.md`](claude-code/skills/aws-knowledge/SKILL.md)
+- `~/.claude-plugins/aws-knowledge/skills/aws-knowledge/references/query-patterns.md` ← 来自 [`claude-code/skills/aws-knowledge/references/query-patterns.md`](claude-code/skills/aws-knowledge/references/query-patterns.md)
 
-将 [`claude-code/skills/aws-knowledge/SKILL.md`](claude-code/skills/aws-knowledge/SKILL.md) 的内容写入 `.claude/skills/aws-knowledge/SKILL.md`。
-
-将 [`claude-code/skills/aws-knowledge/references/query-patterns.md`](claude-code/skills/aws-knowledge/references/query-patterns.md) 的内容写入 `.claude/skills/aws-knowledge/references/query-patterns.md`。
-
-> 从 `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/skills/aws-knowledge/SKILL.md` 和 `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/skills/aws-knowledge/references/query-patterns.md` 获取文件内容，然后写入磁盘。
+> 从 `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/` 获取所有文件，写入 `~/.claude-plugins/aws-knowledge/`。
 
 **步骤 3 — 验证**
 
