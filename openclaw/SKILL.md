@@ -1,5 +1,5 @@
 ---
-name: aws-knowledge
+name: AWS Knowledge
 description: >
   AWS expert powered by the AWS Knowledge MCP Server (via mcporter). Provides real-time access
   to AWS documentation, best practices, SOPs, and regional availability. Use when the user asks
@@ -8,6 +8,7 @@ description: >
   regional availability, cost optimization, security hardening, or any "how do I do X on AWS"
   question. Also activates for CDK/CloudFormation infrastructure-as-code questions and
   AWS Well-Architected guidance.
+metadata: {"openclaw":{"emoji":"☁️","requires":{"bins":["mcporter"]},"install":[{"id":"npm","kind":"node","package":"mcporter","bins":["mcporter"],"label":"Install mcporter (npm)"}]}}
 ---
 
 # AWS Knowledge Skill
