@@ -60,11 +60,24 @@ mcporter list aws-knowledge --schema
 
 #### Claude Code
 
-```bash
-# 1. 复制 MCP 配置到项目
-cp claude-code/mcp.json /path/to/your/project/.mcp.json
+**方式 1 — 通过 CLI（推荐）：**
 
-# 2. 复制技能到项目
+```bash
+# 添加 MCP 服务器
+claude mcp add aws-knowledge --transport http https://knowledge-mcp.global.api.aws
+
+# 安装技能
+git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
+cp -r /tmp/aws-knowledge-skill/claude-code/ .claude/skills/aws-knowledge/
+rm -rf /tmp/aws-knowledge-skill
+```
+
+**方式 2 — 手动配置：**
+
+将 `claude-code/mcp.json` 复制到项目根目录作为 `.mcp.json`，然后复制技能：
+
+```bash
+cp claude-code/mcp.json /path/to/your/project/.mcp.json
 cp -r claude-code/ /path/to/your/project/.claude/skills/aws-knowledge/
 ```
 
@@ -115,32 +128,10 @@ mcporter list aws-knowledge --schema
 
 #### Claude Code Agent
 
-**步骤 1 — 写入 MCP 服务器配置**
+**步骤 1 — 通过 CLI 添加 MCP 服务器**
 
-创建或合并到项目的 `.mcp.json`：
-
-```json
-{
-  "mcpServers": {
-    "aws-knowledge": {
-      "url": "https://knowledge-mcp.global.api.aws",
-      "type": "http"
-    }
-  }
-}
-```
-
-如果不支持 HTTP 传输，使用 fastmcp stdio 代理：
-
-```json
-{
-  "mcpServers": {
-    "aws-knowledge": {
-      "command": "uvx",
-      "args": ["fastmcp", "run", "https://knowledge-mcp.global.api.aws"]
-    }
-  }
-}
+```bash
+claude mcp add aws-knowledge --transport http https://knowledge-mcp.global.api.aws
 ```
 
 **步骤 2 — 直接写入技能文件**

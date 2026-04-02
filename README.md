@@ -60,11 +60,24 @@ mcporter list aws-knowledge --schema
 
 #### Claude Code
 
-```bash
-# 1. Copy MCP config to your project
-cp claude-code/mcp.json /path/to/your/project/.mcp.json
+**Option 1 — Via CLI (recommended):**
 
-# 2. Copy skill into your project
+```bash
+# Add MCP server
+claude mcp add aws-knowledge --transport http https://knowledge-mcp.global.api.aws
+
+# Install the skill
+git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
+cp -r /tmp/aws-knowledge-skill/claude-code/ .claude/skills/aws-knowledge/
+rm -rf /tmp/aws-knowledge-skill
+```
+
+**Option 2 — Manual config:**
+
+Copy `claude-code/mcp.json` to your project root as `.mcp.json`, then copy the skill:
+
+```bash
+cp claude-code/mcp.json /path/to/your/project/.mcp.json
 cp -r claude-code/ /path/to/your/project/.claude/skills/aws-knowledge/
 ```
 
@@ -115,32 +128,10 @@ mcporter list aws-knowledge --schema
 
 #### Claude Code Agent
 
-**Step 1 — Write MCP server config**
+**Step 1 — Add MCP server via CLI**
 
-Create or merge into the project's `.mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "aws-knowledge": {
-      "url": "https://knowledge-mcp.global.api.aws",
-      "type": "http"
-    }
-  }
-}
-```
-
-If HTTP transport is not supported, use the fastmcp stdio proxy instead:
-
-```json
-{
-  "mcpServers": {
-    "aws-knowledge": {
-      "command": "uvx",
-      "args": ["fastmcp", "run", "https://knowledge-mcp.global.api.aws"]
-    }
-  }
-}
+```bash
+claude mcp add aws-knowledge --transport http https://knowledge-mcp.global.api.aws
 ```
 
 **Step 2 — Write the skill files directly**
