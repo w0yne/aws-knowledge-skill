@@ -42,20 +42,25 @@ The AWS Knowledge MCP Server provides:
 
 #### OpenClaw
 
+**Option 1 — From ClawHub (recommended):**
+
 ```bash
-# 1. Install mcporter (if not already installed)
-npm install -g mcporter
+npx clawhub install aws-knowledge
+```
 
-# 2. Add the AWS Knowledge MCP server
-mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
+**Option 2 — From source:**
 
-# 3. Install the skill (openclaw/ only)
+```bash
 git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
 cp -r /tmp/aws-knowledge-skill/openclaw/ ~/.agents/skills/aws-knowledge/
 rm -rf /tmp/aws-knowledge-skill
+```
 
-# 4. Verify
-mcporter list aws-knowledge --schema
+**Prerequisites:** [mcporter](https://mcporter.dev) must be installed with the AWS Knowledge MCP server configured:
+
+```bash
+npm install -g mcporter
+mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
 ```
 
 #### Claude Code
@@ -110,25 +115,26 @@ If your MCP client doesn't support HTTP transport, use the fastmcp stdio proxy i
 
 #### OpenClaw Agent
 
-**Step 1 — Install mcporter (if not already installed)**
+**Step 1 — Install mcporter (if not already installed) and add the server**
 
 ```bash
 which mcporter || npm install -g mcporter
-```
-
-**Step 2 — Add the AWS Knowledge MCP server**
-
-```bash
 mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
 ```
 
-**Step 3 — Write the skill files directly**
+**Step 2 — Install the skill from ClawHub**
+
+```bash
+npx clawhub install aws-knowledge
+```
+
+Alternatively, write the skill files directly without ClawHub:
 
 Create `~/.agents/skills/aws-knowledge/SKILL.md` with the contents of [`openclaw/SKILL.md`](openclaw/SKILL.md).
 
 Create `~/.agents/skills/aws-knowledge/references/query-patterns.md` with the contents of [`openclaw/references/query-patterns.md`](openclaw/references/query-patterns.md).
 
-> Fetch these files from `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/SKILL.md` and `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/references/query-patterns.md`, then write them to disk.
+> Fetch from `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/SKILL.md` and `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/references/query-patterns.md`, then write to disk.
 
 **Step 4 — Verify**
 

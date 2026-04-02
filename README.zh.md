@@ -42,20 +42,25 @@ AWS Knowledge MCP Server 提供以下工具：
 
 #### OpenClaw
 
+**方式 1 — 从 ClawHub 安装（推荐）：**
+
 ```bash
-# 1. 安装 mcporter（如未安装）
-npm install -g mcporter
+npx clawhub install aws-knowledge
+```
 
-# 2. 添加 AWS Knowledge MCP 服务器
-mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
+**方式 2 — 从源码安装：**
 
-# 3. 安装技能（仅 openclaw/ 目录）
+```bash
 git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
 cp -r /tmp/aws-knowledge-skill/openclaw/ ~/.agents/skills/aws-knowledge/
 rm -rf /tmp/aws-knowledge-skill
+```
 
-# 4. 验证
-mcporter list aws-knowledge --schema
+**前置条件：** 需安装 [mcporter](https://mcporter.dev) 并配置 AWS Knowledge MCP 服务器：
+
+```bash
+npm install -g mcporter
+mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
 ```
 
 #### Claude Code
@@ -110,19 +115,20 @@ rm -rf /tmp/aws-knowledge-skill
 
 #### OpenClaw Agent
 
-**步骤 1 — 安装 mcporter（如未安装）**
+**步骤 1 — 安装 mcporter（如未安装）并添加服务器**
 
 ```bash
 which mcporter || npm install -g mcporter
-```
-
-**步骤 2 — 添加 AWS Knowledge MCP 服务器**
-
-```bash
 mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
 ```
 
-**步骤 3 — 直接写入技能文件**
+**步骤 2 — 从 ClawHub 安装技能**
+
+```bash
+npx clawhub install aws-knowledge
+```
+
+或者不使用 ClawHub，直接写入技能文件：
 
 将 [`openclaw/SKILL.md`](openclaw/SKILL.md) 的内容写入 `~/.agents/skills/aws-knowledge/SKILL.md`。
 
