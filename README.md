@@ -83,14 +83,14 @@ If your MCP client doesn't support HTTP transport, use the fastmcp stdio proxy i
 
 ### Quick Start (AI Agent)
 
-> The following steps are for AI Agents installing this skill on behalf of the user. The end result should be identical to a manual install.
+> The following steps are for AI Agents installing this skill on behalf of the user. The end result is identical to a manual install. No git clone required — write the files directly.
 
 #### OpenClaw Agent
 
 **Step 1 — Install mcporter (if not already installed)**
 
 ```bash
-npm install -g mcporter
+which mcporter || npm install -g mcporter
 ```
 
 **Step 2 — Add the AWS Knowledge MCP server**
@@ -99,13 +99,13 @@ npm install -g mcporter
 mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
 ```
 
-**Step 3 — Install the skill**
+**Step 3 — Write the skill files directly**
 
-```bash
-git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
-cp -r /tmp/aws-knowledge-skill/openclaw/ ~/.agents/skills/aws-knowledge/
-rm -rf /tmp/aws-knowledge-skill
-```
+Create `~/.agents/skills/aws-knowledge/SKILL.md` with the contents of [`openclaw/SKILL.md`](openclaw/SKILL.md).
+
+Create `~/.agents/skills/aws-knowledge/references/query-patterns.md` with the contents of [`openclaw/references/query-patterns.md`](openclaw/references/query-patterns.md).
+
+> Fetch these files from `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/SKILL.md` and `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/references/query-patterns.md`, then write them to disk.
 
 **Step 4 — Verify**
 
@@ -115,7 +115,7 @@ mcporter list aws-knowledge --schema
 
 #### Claude Code Agent
 
-**Step 1 — Add MCP server config**
+**Step 1 — Write MCP server config**
 
 Create or merge into the project's `.mcp.json`:
 
@@ -143,13 +143,13 @@ If HTTP transport is not supported, use the fastmcp stdio proxy instead:
 }
 ```
 
-**Step 2 — Install the skill**
+**Step 2 — Write the skill files directly**
 
-```bash
-git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
-cp -r /tmp/aws-knowledge-skill/claude-code/ .claude/skills/aws-knowledge/
-rm -rf /tmp/aws-knowledge-skill
-```
+Create `.claude/skills/aws-knowledge/SKILL.md` with the contents of [`claude-code/SKILL.md`](claude-code/SKILL.md).
+
+Create `.claude/skills/aws-knowledge/references/query-patterns.md` with the contents of [`claude-code/references/query-patterns.md`](claude-code/references/query-patterns.md).
+
+> Fetch these files from `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/SKILL.md` and `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/references/query-patterns.md`, then write them to disk.
 
 **Step 3 — Verify**
 

@@ -83,14 +83,14 @@ cp -r claude-code/ /path/to/your/project/.claude/skills/aws-knowledge/
 
 ### 快速开始（AI Agent）
 
-> 以下步骤面向 AI Agent 代替用户安装本技能。最终结果应与手动安装完全一致。
+> 以下步骤面向 AI Agent 代替用户安装本技能。最终结果与手动安装完全一致。无需 git clone —— 直接写入文件即可。
 
 #### OpenClaw Agent
 
 **步骤 1 — 安装 mcporter（如未安装）**
 
 ```bash
-npm install -g mcporter
+which mcporter || npm install -g mcporter
 ```
 
 **步骤 2 — 添加 AWS Knowledge MCP 服务器**
@@ -99,13 +99,13 @@ npm install -g mcporter
 mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
 ```
 
-**步骤 3 — 安装技能**
+**步骤 3 — 直接写入技能文件**
 
-```bash
-git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
-cp -r /tmp/aws-knowledge-skill/openclaw/ ~/.agents/skills/aws-knowledge/
-rm -rf /tmp/aws-knowledge-skill
-```
+将 [`openclaw/SKILL.md`](openclaw/SKILL.md) 的内容写入 `~/.agents/skills/aws-knowledge/SKILL.md`。
+
+将 [`openclaw/references/query-patterns.md`](openclaw/references/query-patterns.md) 的内容写入 `~/.agents/skills/aws-knowledge/references/query-patterns.md`。
+
+> 从 `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/SKILL.md` 和 `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/references/query-patterns.md` 获取文件内容，然后写入磁盘。
 
 **步骤 4 — 验证**
 
@@ -115,7 +115,7 @@ mcporter list aws-knowledge --schema
 
 #### Claude Code Agent
 
-**步骤 1 — 添加 MCP 服务器配置**
+**步骤 1 — 写入 MCP 服务器配置**
 
 创建或合并到项目的 `.mcp.json`：
 
@@ -143,13 +143,13 @@ mcporter list aws-knowledge --schema
 }
 ```
 
-**步骤 2 — 安装技能**
+**步骤 2 — 直接写入技能文件**
 
-```bash
-git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
-cp -r /tmp/aws-knowledge-skill/claude-code/ .claude/skills/aws-knowledge/
-rm -rf /tmp/aws-knowledge-skill
-```
+将 [`claude-code/SKILL.md`](claude-code/SKILL.md) 的内容写入 `.claude/skills/aws-knowledge/SKILL.md`。
+
+将 [`claude-code/references/query-patterns.md`](claude-code/references/query-patterns.md) 的内容写入 `.claude/skills/aws-knowledge/references/query-patterns.md`。
+
+> 从 `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/SKILL.md` 和 `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/references/query-patterns.md` 获取文件内容，然后写入磁盘。
 
 **步骤 3 — 验证**
 
