@@ -81,36 +81,39 @@ If your MCP client doesn't support HTTP transport, use the fastmcp stdio proxy i
 
 ### Quick Start (AI Agent)
 
-> The following steps are for AI Agents.
+> The following steps are for AI Agents installing this skill on behalf of the user. The end result should be identical to a manual install.
 
 #### OpenClaw Agent
 
-**Step 1 — Install mcporter and add the server**
+**Step 1 — Install mcporter (if not already installed)**
 
 ```bash
 npm install -g mcporter
+```
+
+**Step 2 — Add the AWS Knowledge MCP server**
+
+```bash
 mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
 ```
 
-**Step 2 — Verify**
+**Step 3 — Install the skill**
+
+```bash
+git clone https://github.com/w0yne/aws-knowledge-skill.git ~/.agents/skills/aws-knowledge-skill
+```
+
+**Step 4 — Verify**
 
 ```bash
 mcporter list aws-knowledge --schema
 ```
 
-**Step 3 — Start querying**
-
-```bash
-mcporter call aws-knowledge.search_documentation query="S3 bucket policy best practices"
-mcporter call aws-knowledge.get_regional_availability service="Amazon Bedrock" region="us-west-2"
-mcporter call aws-knowledge.retrieve_agent_sops query="deploy to ECS Fargate"
-```
-
-**Step 4 — Synthesize results into a clear answer with source links.**
-
 #### Claude Code Agent
 
-**Step 1 — Ensure `.mcp.json` exists in project root**
+**Step 1 — Add MCP server config**
+
+Create or merge into the project's `.mcp.json`:
 
 ```json
 {
@@ -123,15 +126,34 @@ mcporter call aws-knowledge.retrieve_agent_sops query="deploy to ECS Fargate"
 }
 ```
 
-**Step 2 — Call tools directly**
+If HTTP transport is not supported, use the fastmcp stdio proxy instead:
+
+```json
+{
+  "mcpServers": {
+    "aws-knowledge": {
+      "command": "uvx",
+      "args": ["fastmcp", "run", "https://knowledge-mcp.global.api.aws"]
+    }
+  }
+}
+```
+
+**Step 2 — Install the skill**
+
+```bash
+git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
+cp -r /tmp/aws-knowledge-skill/claude-code/ .claude/skills/aws-knowledge/
+rm -rf /tmp/aws-knowledge-skill
+```
+
+**Step 3 — Verify**
+
+Confirm the skill is loaded by calling a tool:
 
 ```
-search_documentation(query="VPC production setup best practices")
-get_regional_availability(service="AWS Lambda", region="eu-west-1")
-retrieve_agent_sops(query="set up CloudFront distribution")
+search_documentation(query="S3 bucket policy best practices")
 ```
-
-**Step 3 — Synthesize results into a clear answer with source links.**
 
 ## Agent Skills
 

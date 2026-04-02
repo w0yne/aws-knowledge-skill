@@ -81,36 +81,39 @@ cp -r claude-code/ /path/to/your/project/.claude/skills/aws-knowledge/
 
 ### 快速开始（AI Agent）
 
-> 以下步骤面向 AI Agent。
+> 以下步骤面向 AI Agent 代替用户安装本技能。最终结果应与手动安装完全一致。
 
 #### OpenClaw Agent
 
-**步骤 1 — 安装 mcporter 并添加服务器**
+**步骤 1 — 安装 mcporter（如未安装）**
 
 ```bash
 npm install -g mcporter
+```
+
+**步骤 2 — 添加 AWS Knowledge MCP 服务器**
+
+```bash
 mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
 ```
 
-**步骤 2 — 验证**
+**步骤 3 — 安装技能**
+
+```bash
+git clone https://github.com/w0yne/aws-knowledge-skill.git ~/.agents/skills/aws-knowledge-skill
+```
+
+**步骤 4 — 验证**
 
 ```bash
 mcporter list aws-knowledge --schema
 ```
 
-**步骤 3 — 开始查询**
-
-```bash
-mcporter call aws-knowledge.search_documentation query="S3 bucket policy best practices"
-mcporter call aws-knowledge.get_regional_availability service="Amazon Bedrock" region="us-west-2"
-mcporter call aws-knowledge.retrieve_agent_sops query="deploy to ECS Fargate"
-```
-
-**步骤 4 — 将结果整合为清晰的回答，附上来源链接。**
-
 #### Claude Code Agent
 
-**步骤 1 — 确保项目根目录存在 `.mcp.json`**
+**步骤 1 — 添加 MCP 服务器配置**
+
+创建或合并到项目的 `.mcp.json`：
 
 ```json
 {
@@ -123,15 +126,34 @@ mcporter call aws-knowledge.retrieve_agent_sops query="deploy to ECS Fargate"
 }
 ```
 
-**步骤 2 — 直接调用工具**
+如果不支持 HTTP 传输，使用 fastmcp stdio 代理：
+
+```json
+{
+  "mcpServers": {
+    "aws-knowledge": {
+      "command": "uvx",
+      "args": ["fastmcp", "run", "https://knowledge-mcp.global.api.aws"]
+    }
+  }
+}
+```
+
+**步骤 2 — 安装技能**
+
+```bash
+git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
+cp -r /tmp/aws-knowledge-skill/claude-code/ .claude/skills/aws-knowledge/
+rm -rf /tmp/aws-knowledge-skill
+```
+
+**步骤 3 — 验证**
+
+调用一个工具确认技能已加载：
 
 ```
-search_documentation(query="VPC production setup best practices")
-get_regional_availability(service="AWS Lambda", region="eu-west-1")
-retrieve_agent_sops(query="set up CloudFront distribution")
+search_documentation(query="S3 bucket policy best practices")
 ```
-
-**步骤 3 — 将结果整合为清晰的回答，附上来源链接。**
 
 ## Agent 技能
 
