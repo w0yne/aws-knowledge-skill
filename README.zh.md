@@ -49,8 +49,10 @@ npm install -g mcporter
 # 2. 添加 AWS Knowledge MCP 服务器
 mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.global.api.aws
 
-# 3. 安装技能
-git clone https://github.com/w0yne/aws-knowledge-skill.git ~/.agents/skills/aws-knowledge-skill
+# 3. 安装技能（仅 openclaw/ 目录）
+git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
+cp -r /tmp/aws-knowledge-skill/openclaw/ ~/.agents/skills/aws-knowledge/
+rm -rf /tmp/aws-knowledge-skill
 
 # 4. 验证
 mcporter list aws-knowledge --schema
@@ -100,7 +102,9 @@ mcporter config add aws-knowledge --transport http --url https://knowledge-mcp.g
 **步骤 3 — 安装技能**
 
 ```bash
-git clone https://github.com/w0yne/aws-knowledge-skill.git ~/.agents/skills/aws-knowledge-skill
+git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
+cp -r /tmp/aws-knowledge-skill/openclaw/ ~/.agents/skills/aws-knowledge/
+rm -rf /tmp/aws-knowledge-skill
 ```
 
 **步骤 4 — 验证**
