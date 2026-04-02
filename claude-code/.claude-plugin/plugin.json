@@ -1,0 +1,11 @@
+{
+  "name": "aws-knowledge",
+  "description": "AWS expert powered by the AWS Knowledge MCP Server. Real-time access to AWS documentation, best practices, SOPs, and regional availability.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Stev Wayne"
+  },
+  "homepage": "https://github.com/w0yne/aws-knowledge-skill",
+  "repository": "https://github.com/w0yne/aws-knowledge-skill",
+  "license": "MIT"
+}

@@ -60,25 +60,35 @@ mcporter list aws-knowledge --schema
 
 #### Claude Code
 
-**Option 1 — Via CLI (recommended):**
+**Option 1 — As a plugin (recommended):**
+
+The `claude-code/` directory is a complete [Claude Code plugin](https://code.claude.com/docs/en/plugins). Install it with `--plugin-dir`:
 
 ```bash
-# Add MCP server
+git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
+claude --plugin-dir /tmp/aws-knowledge-skill/claude-code
+```
+
+Or install permanently by copying to your plugins location:
+
+```bash
+git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
+cp -r /tmp/aws-knowledge-skill/claude-code ~/.claude-plugins/aws-knowledge
+rm -rf /tmp/aws-knowledge-skill
+```
+
+The plugin bundles the MCP server config (`.mcp.json`) and skill together — no separate setup needed.
+
+**Option 2 — MCP server + standalone skill:**
+
+```bash
+# Add MCP server via CLI
 claude mcp add aws-knowledge --transport http https://knowledge-mcp.global.api.aws
 
 # Install the skill
 git clone https://github.com/w0yne/aws-knowledge-skill.git /tmp/aws-knowledge-skill
-cp -r /tmp/aws-knowledge-skill/claude-code/ .claude/skills/aws-knowledge/
+cp -r /tmp/aws-knowledge-skill/claude-code/skills/aws-knowledge/ .claude/skills/aws-knowledge/
 rm -rf /tmp/aws-knowledge-skill
-```
-
-**Option 2 — Manual config:**
-
-Copy `claude-code/mcp.json` to your project root as `.mcp.json`, then copy the skill:
-
-```bash
-cp claude-code/mcp.json /path/to/your/project/.mcp.json
-cp -r claude-code/ /path/to/your/project/.claude/skills/aws-knowledge/
 ```
 
 If your MCP client doesn't support HTTP transport, use the fastmcp stdio proxy in `.mcp.json`:
@@ -136,11 +146,11 @@ claude mcp add aws-knowledge --transport http https://knowledge-mcp.global.api.a
 
 **Step 2 — Write the skill files directly**
 
-Create `.claude/skills/aws-knowledge/SKILL.md` with the contents of [`claude-code/SKILL.md`](claude-code/SKILL.md).
+Create `.claude/skills/aws-knowledge/SKILL.md` with the contents of [`claude-code/skills/aws-knowledge/SKILL.md`](claude-code/skills/aws-knowledge/SKILL.md).
 
-Create `.claude/skills/aws-knowledge/references/query-patterns.md` with the contents of [`claude-code/references/query-patterns.md`](claude-code/references/query-patterns.md).
+Create `.claude/skills/aws-knowledge/references/query-patterns.md` with the contents of [`claude-code/skills/aws-knowledge/references/query-patterns.md`](claude-code/skills/aws-knowledge/references/query-patterns.md).
 
-> Fetch these files from `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/SKILL.md` and `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/references/query-patterns.md`, then write them to disk.
+> Fetch from `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/skills/aws-knowledge/SKILL.md` and `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/skills/aws-knowledge/references/query-patterns.md`, then write to disk.
 
 **Step 3 — Verify**
 
@@ -244,11 +254,15 @@ aws-knowledge-skill/
 │   ├── SKILL.md                        # Skill definition
 │   └── references/
 │       └── query-patterns.md           # Domain-specific query examples
-├── claude-code/                        # Claude Code skill (native MCP)
-│   ├── SKILL.md                        # Skill definition
-│   ├── mcp.json                        # MCP server config
-│   └── references/
-│       └── query-patterns.md           # Domain-specific query examples
+├── claude-code/                        # Claude Code plugin (native MCP)
+│   ├── .claude-plugin/
+│   │   └── plugin.json                 # Plugin manifest
+│   ├── .mcp.json                       # MCP server config (bundled)
+│   └── skills/
+│       └── aws-knowledge/
+│           ├── SKILL.md                # Skill definition
+│           └── references/
+│               └── query-patterns.md   # Domain-specific query examples
 └── shared/
     └── tool-reference.md               # Detailed tool documentation
 ```
