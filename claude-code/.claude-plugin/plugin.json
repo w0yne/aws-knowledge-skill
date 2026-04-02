@@ -1,7 +1,7 @@
 {
   "name": "aws-knowledge",
   "description": "AWS expert powered by the AWS Knowledge MCP Server. Real-time access to AWS documentation, best practices, SOPs, and regional availability.",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": {
     "name": "Stev Wayne"
   },

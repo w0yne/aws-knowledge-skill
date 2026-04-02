@@ -1,5 +1,5 @@
 ---
-name: aws-knowledge
+name: AWS Knowledge
 description: >
   AWS expert powered by the AWS Knowledge MCP Server. Provides real-time access to AWS
   documentation, best practices, SOPs, and regional availability via MCP tools. Use when
