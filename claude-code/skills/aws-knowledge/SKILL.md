@@ -14,36 +14,6 @@ description: >
 
 Query the AWS Knowledge MCP Server for real-time AWS expertise.
 
-## Prerequisites
-
-The MCP server must be configured in your project's `.mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "aws-knowledge": {
-      "url": "https://knowledge-mcp.global.api.aws",
-      "type": "http"
-    }
-  }
-}
-```
-
-If your client doesn't support HTTP transport, use the fastmcp stdio proxy:
-
-```json
-{
-  "mcpServers": {
-    "aws-knowledge": {
-      "command": "uvx",
-      "args": ["fastmcp", "run", "https://knowledge-mcp.global.api.aws"]
-    }
-  }
-}
-```
-
-No authentication required.
-
 ## Query Routing
 
 Route each question to the right tool:
