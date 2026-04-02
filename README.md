@@ -66,9 +66,9 @@ mcporter list aws-knowledge --schema
 
 ### Claude Code
 
-Add to your Claude Code MCP settings (`.claude/settings.json` or project-level `.mcp.json`):
+#### Step 1 — Add MCP server config
 
-#### Option 1 — Direct HTTP (if your client supports Streamable HTTP)
+Copy `claude-code/mcp.json` to your project root as `.mcp.json`, or add to your existing config:
 
 ```json
 {
@@ -81,7 +81,7 @@ Add to your Claude Code MCP settings (`.claude/settings.json` or project-level `
 }
 ```
 
-#### Option 2 — Via fastmcp proxy (stdio fallback)
+If your client doesn't support HTTP transport, use the fastmcp stdio proxy:
 
 ```json
 {
@@ -92,6 +92,21 @@ Add to your Claude Code MCP settings (`.claude/settings.json` or project-level `
     }
   }
 }
+```
+
+#### Step 2 — Install the skill
+
+Copy the `claude-code/` folder into your project's skills directory:
+
+```bash
+cp -r claude-code/ /path/to/your/project/.claude/skills/aws-knowledge/
+```
+
+Or clone and symlink:
+
+```bash
+git clone https://github.com/w0yne/aws-knowledge-skill.git
+ln -s $(pwd)/aws-knowledge-skill/claude-code /path/to/your/project/.claude/skills/aws-knowledge
 ```
 
 ### Cursor / VS Code
@@ -144,22 +159,10 @@ Agent: [calls mcporter call aws-knowledge.search_documentation query="VPC produc
        [synthesizes answer with architecture guidance + links]
 ```
 
-## Claude Code
+## Claude Code Skill
 
-### CLAUDE.md Integration
-
-Add to your project's `CLAUDE.md` for automatic AWS expertise:
-
-```markdown
-## AWS Knowledge
-
-When answering AWS-related questions:
-1. Use the `aws-knowledge` MCP server tools
-2. Always search documentation before answering from memory
-3. Check regional availability before recommending services
-4. Prefer SOPs for step-by-step tasks (retrieve_agent_sops)
-5. Include source doc links in your answers
-```
+The `claude-code/` directory is a complete skill with its own `SKILL.md`, `references/`, and MCP config.
+It uses native MCP tool calls (no mcporter dependency).
 
 ## Examples
 
@@ -230,17 +233,19 @@ mcporter call aws-knowledge.get_regional_availability service="AWS Lambda" regio
 
 ```
 aws-knowledge-skill/
-├── README.md                    # This file
-├── LICENSE                      # MIT
-├── openclaw/                    # OpenClaw skill
-│   ├── SKILL.md                 # Skill definition (triggers + instructions)
+├── README.md                         # This file
+├── LICENSE                           # MIT
+├── openclaw/                         # OpenClaw skill (uses mcporter)
+│   ├── SKILL.md                      # Skill definition
 │   └── references/
-│       └── query-patterns.md    # Common query patterns by AWS domain
-├── claude-code/                 # Claude Code configuration
-│   ├── mcp.json                 # MCP server config (copy to .mcp.json)
-│   └── CLAUDE.md                # Drop into your project for AWS expertise
+│       └── query-patterns.md         # Domain-specific query examples
+├── claude-code/                      # Claude Code skill (native MCP)
+│   ├── SKILL.md                      # Skill definition
+│   ├── mcp.json                      # MCP server config (copy to .mcp.json)
+│   └── references/
+│       └── query-patterns.md         # Domain-specific query examples
 └── shared/
-    └── tool-reference.md        # Detailed tool documentation
+    └── tool-reference.md             # Detailed tool documentation
 ```
 
 ## Compatibility
