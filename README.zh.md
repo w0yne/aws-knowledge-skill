@@ -136,7 +136,7 @@ npx clawhub install aws-knowledge
 
 > 从 `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/SKILL.md` 和 `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/references/query-patterns.md` 获取文件内容，然后写入磁盘。
 
-**步骤 4 — 验证**
+**步骤 3 — 验证**
 
 ```bash
 mcporter list aws-knowledge --schema
@@ -155,9 +155,7 @@ mcporter list aws-knowledge --schema
 
 > 从 `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/` 获取所有文件，写入 `~/.claude-plugins/aws-knowledge/`。
 
-**步骤 3 — 验证**
-
-调用一个工具确认技能已加载：
+**步骤 2 — 验证**
 
 ```
 search_documentation(query="S3 bucket policy best practices")
@@ -170,14 +168,7 @@ search_documentation(query="S3 bucket policy best practices")
 | `openclaw/` | OpenClaw | 通过 mcporter 的 AWS 专家 — 查询路由、工具调用、答案整合 |
 | `claude-code/` | Claude Code | 通过原生 MCP 的 AWS 专家 — 相同行为，无需 mcporter |
 
-两种技能共享相同结构：
-
-```
-<skill>/
-├── SKILL.md                    # 技能定义（触发条件 + 工作流）
-└── references/
-    └── query-patterns.md       # 按领域分类的常用查询（计算、存储、安全等）
-```
+两种技能提供相同的查询路由和工作流。OpenClaw 通过 mcporter 传输，Claude Code 使用原生 MCP 调用。详见[项目结构](#项目结构)。
 
 ### 查询路由
 

@@ -136,7 +136,7 @@ Create `~/.agents/skills/aws-knowledge/references/query-patterns.md` with the co
 
 > Fetch from `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/SKILL.md` and `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/openclaw/references/query-patterns.md`, then write to disk.
 
-**Step 4 — Verify**
+**Step 3 — Verify**
 
 ```bash
 mcporter list aws-knowledge --schema
@@ -155,9 +155,7 @@ Create the plugin directory and write all files:
 
 > Fetch all files from `https://raw.githubusercontent.com/w0yne/aws-knowledge-skill/main/claude-code/` and write to `~/.claude-plugins/aws-knowledge/`.
 
-**Step 3 — Verify**
-
-Confirm the skill is loaded by calling a tool:
+**Step 2 — Verify**
 
 ```
 search_documentation(query="S3 bucket policy best practices")
@@ -170,14 +168,7 @@ search_documentation(query="S3 bucket policy best practices")
 | `openclaw/` | OpenClaw | AWS expert via mcporter — query routing, tool calling, answer synthesis |
 | `claude-code/` | Claude Code | AWS expert via native MCP — same behavior, no mcporter dependency |
 
-Both skills share the same structure:
-
-```
-<skill>/
-├── SKILL.md                    # Skill definition (triggers + workflow)
-└── references/
-    └── query-patterns.md       # Common queries by domain (compute, storage, security, etc.)
-```
+Both skills provide the same query routing and workflow. OpenClaw uses mcporter for transport, Claude Code uses native MCP calls. See [Project Structure](#project-structure) for file layout.
 
 ### Query Routing
 
